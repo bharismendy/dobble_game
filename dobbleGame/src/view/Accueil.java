@@ -29,13 +29,13 @@ public class Accueil extends JPanel implements Observer{
 
 		//definition des bouttons
 		debut_partie = new JButton();
-		debut_partie.setName("debut_partie");
+		debut_partie.setName("gaming_area");
 		debut_partie.setText("New Game");
 		debut_partie.addActionListener(menusetter);
 
 
 		about_rules = new JButton();
-		about_rules.setName("about_rule");
+		about_rules.setName("rules");
 		about_rules.setText("Rules");
 		about_rules.addActionListener(menusetter);
 

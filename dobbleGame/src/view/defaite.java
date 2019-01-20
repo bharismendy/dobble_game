@@ -11,14 +11,14 @@ import javax.swing.JPanel;
 
 import controller.abstractControler;
 
-public class about_us extends JPanel implements observer.Observer{
+public class defaite extends JPanel implements observer.Observer{
 	private BorderLayout content_layout;
 	private JPanel content_panel;
 
 	private JLabel content_to_show;
 	private JButton go_back_to_menu;
 
-	public about_us() {
+	public defaite() {
 		menuListenner menusetter = new menuListenner();
 
 		content_layout = new BorderLayout();
@@ -27,8 +27,8 @@ public class about_us extends JPanel implements observer.Observer{
 		content_panel.setLayout(new BoxLayout(content_panel, BoxLayout.Y_AXIS));
 
 		content_to_show = new JLabel();
-		content_to_show.setText("<html><hr>Nous somme deux étudiants de master 2 informatique,<br>" +
-				"ce projet a pour but d'utiliser le solveur minizinc pour reproduire le jeux dobble<br>" +
+		content_to_show.setText("<html><hr><br>" +
+				"<h1>Vous avez perdu !!!</h1><br>" +
 				"<hr></html>");
 
 		go_back_to_menu = new JButton();
