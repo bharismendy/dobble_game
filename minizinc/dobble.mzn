@@ -9,7 +9,8 @@ set of int : symboles_cartes = 1..nbSymbolesParCarte;
 set of int : variantes = 1..nbVariantes;
 
 var int : max_symboles = ((nbCartes*nbSymbolesParCarte) div nbSymboles)+2;
-var int : max_variantes = ((nbCartes*nbSymbolesParCarte) div nbVariantes)+2;
+var int : min_variantes = ((nbCartes*nbSymbolesParCarte) div nbVariantes)-1;
+var int : max_variantes = ((nbCartes*nbSymbolesParCarte) div nbVariantes)+1;
 
 
 array[cartes, symboles_cartes] of var symboles : jeu_symboles;
@@ -37,6 +38,7 @@ constraint forall(s in symboles)(nb_symboles[s]<=max_symboles);
 constraint forall(v in variantes)(sum(c in cartes, ss in symboles_cartes)(bool2int(jeu_variantes[c,ss]=v))=nb_variantes[v]);
 % meilleur répartition des variantes
 constraint forall(v in variantes)(nb_variantes[v]<=max_variantes);
+constraint forall(v in variantes)(nb_variantes[v]>=min_variantes);
 % variantes utilisées au moins une fois
 constraint forall(v in variantes)(nb_variantes[v]>=1);
 
