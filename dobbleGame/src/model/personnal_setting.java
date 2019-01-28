@@ -152,7 +152,9 @@ public class personnal_setting {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String line = bufferedReader.readLine();
-            if((line == null || line.contains("=====UNSATISFIABLE====="))){
+            if(line == null || line.contains("=====UNSATISFIABLE=====")||
+            		line.contains("=====UNSATorUNBOUNDED=====")|| line.contains("=====UNBOUNDED=====")||
+            		line.contains("=====UNKNOWN=====")|| line.contains("=====ERROR=====")|| line.contains("==========")){
             	result = false;
             }
             // Always close files.
