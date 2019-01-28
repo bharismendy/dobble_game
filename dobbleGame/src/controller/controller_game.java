@@ -4,15 +4,18 @@ import java.util.Hashtable;
 
 import model.carte;
 import model.engine;
+import model.personnal_setting;
 
 public class controller_game extends abstractControler{
 	private static engine Engine;
 	private static Hashtable<Integer, String> ressourceJeu;
-	
-	public controller_game(Hashtable<Integer, String> ressourceJeu, engine Engine) {
+	private static personnal_setting conf_timer;
+
+	public controller_game(Hashtable<Integer, String> ressourceJeu, engine Engine, personnal_setting conf) {
 		super();
 		this.Engine = Engine;
 		this.ressourceJeu = ressourceJeu;
+		this.conf_timer = conf;
 	}
 	public static void setEngine(engine engine) {
 		Engine = engine;
@@ -36,5 +39,8 @@ public class controller_game extends abstractControler{
 	public static void reset_engine() {
 		engine Engine = new engine();
 		controller_game.setEngine(Engine);
+	}
+	public static int getTimer(){
+		return controller_game.conf_timer.getTimer();
 	}
 }

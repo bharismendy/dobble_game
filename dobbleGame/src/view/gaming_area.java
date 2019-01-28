@@ -6,8 +6,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
@@ -27,7 +29,7 @@ public class gaming_area extends JPanel implements observer.Observer{
 	private JPanel carte_gauche_panel;
 	private JPanel carte_droite_panel;
 	private JPanel top_panel;
-	
+
 	private BorderLayout divider_layout;
 	private GridLayout center_layout;
 	private GridLayout top_layout;
@@ -43,7 +45,7 @@ public class gaming_area extends JPanel implements observer.Observer{
 	private menuListenner menusetter;
 	private clique_image action_image;
 	private controller_game controlerJeu;
-	
+
 	public gaming_area(controller_game controlerJeu) {
 		this.controlerJeu = controlerJeu;
 		this.action_image = new clique_image();
@@ -54,18 +56,17 @@ public class gaming_area extends JPanel implements observer.Observer{
 		top_panel = new JPanel();
 		carte_droite_panel = new JPanel();
 		carte_gauche_panel = new JPanel();
-		
-		//adding some border 
-		carte_droite_panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.black));
-		carte_gauche_panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.black));
-		
+
+		//adding some border
+		carte_gauche_panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 10, Color.black));
+
 		//defining layout
 		divider_layout = new BorderLayout();
 		center_layout = new GridLayout(1,2,0,0);//(rows,columns,hgaps,vgaps)
 		carte_droite_layout = new GridLayout(3,4,0,0);//(rows,columns,hgaps,vgaps) -> 3 lignes de 4 images
 		carte_gauche_layout = new GridLayout(3,4,0,0);//(rows,columns,hgaps,vgaps) -> 3 lignes de 4 images (différent de celui de droite car on pourra plus tard les différencier)
 		top_layout = new GridLayout(0,3,0,0);
-		
+
 		//setting layout
 		this.setLayout(divider_layout);
 		center_panel.setLayout(center_layout);
@@ -75,17 +76,17 @@ public class gaming_area extends JPanel implements observer.Observer{
 
 		//set some component for timer
 		timer = new Timer(1000, this.shedule);
-		timer_label = new JLabel("15 secondes");
+		timer_label = new JLabel(Integer.toString(controlerJeu.getTimer())+" secondes");
 		timer_label.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		go_back_main_menu = new JButton();
 		go_back_main_menu.setName("go_back_to_menu");
 		go_back_main_menu.setText("Main menu");
 		go_back_main_menu.addActionListener(menusetter);
 
-		nb_carte_restante = new JLabel("15 cartes");
+		nb_carte_restante = new JLabel(" cartes");
 		nb_carte_restante.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		/*call function to modify*/
 		carte_droite_panel = construct_card_panel(carte_droite_panel, controller_game.getCurrentCard(),"d");
 		carte_gauche_panel = construct_card_panel(carte_gauche_panel, controller_game.getPreviousCard(),"g");
@@ -93,32 +94,48 @@ public class gaming_area extends JPanel implements observer.Observer{
 		top_panel.add(timer_label);
 		top_panel.add(go_back_main_menu);
 		top_panel.add(nb_carte_restante);
-		
+
 		center_panel.add(carte_gauche_panel);
 		center_panel.add(carte_droite_panel);
-		
-		
+
+
 		this.add(top_panel, divider_layout.PAGE_START);
 		this.add(center_panel);
 	}
-	
+
 	/*-----affichage du nombre de carte restante------*/
 	private JPanel construct_card_panel(JPanel panel_to_modify, carte temp_carte, String name_panel) {
 		int[] temp_id = temp_carte.getId_image();
+		int[] variante = temp_carte.getVariante();
 		for(int i=0;i<temp_id.length;i++) {
-			Image img = null;
+			BufferedImage img = null;
+			Image newImage = null;
 			try {
 				img = ImageIO.read(new File(controller_game.getRessourcesImagesPath()+controller_game.getImagePath(temp_id[i])));
+				switch (variante[i]) {
+				case 1 :
+				case 3 :
+				case 5 :
+					newImage = img.getScaledInstance(img.getWidth()*variante[i],img.getHeight()*variante[i], Image.SCALE_DEFAULT);
+					break;
+				case 2 :
+				case 4 :
+					newImage = img.getScaledInstance(img.getWidth()/variante[i],img.getHeight()/variante[i], Image.SCALE_DEFAULT);
+					break;
+				default:
+					newImage = img.getScaledInstance(img.getWidth(),img.getHeight(), Image.SCALE_DEFAULT);
+					break;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			JButton temp_button = new JButton();
 			temp_button.setName(Integer.toString(temp_id[i])+"_"+name_panel);
 			temp_button.addActionListener(action_image);
-			temp_button.setIcon(new ImageIcon(img));
+			temp_button.setIcon(new ImageIcon(newImage));
 			panel_to_modify.add(temp_button);
 		}
-		this.nb_carte_restante.setText(Integer.toString(controller_game.get_number_of_card()+2));
+		this.nb_carte_restante.setText(Integer.toString(controller_game.get_number_of_card()+2)+" cartes");
 		return panel_to_modify;
 	}
 
@@ -130,7 +147,7 @@ public class gaming_area extends JPanel implements observer.Observer{
 	@Override
 	public void changePanel(String nomPanel) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	class clique_image implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -185,8 +202,8 @@ public class gaming_area extends JPanel implements observer.Observer{
 	class timer_shedule implements ActionListener {
 	      public void actionPerformed(ActionEvent evt) {
 	    	  count++;
-	    	  if (count<= 15) {
-		    	  timer_label.setText(Integer.toString(15-count)+" secondes");
+	    	  if (count<= controlerJeu.getTimer()) {
+		    	  timer_label.setText(Integer.toString(controlerJeu.getTimer()-count)+" secondes");
 	    	  }else {
 				controller_game.reset_engine();
 				carte_droite_panel.removeAll();
@@ -201,7 +218,7 @@ public class gaming_area extends JPanel implements observer.Observer{
 	  }
 	 public void start_timer() {
 		 timer.start();
-		 timer_label.setText("15 secondes");
+		 timer_label.setText(Integer.toString(controlerJeu.getTimer())+" secondes");
 	 }
 	 public void reset_timer() {
 		 count = 0;
@@ -210,7 +227,7 @@ public class gaming_area extends JPanel implements observer.Observer{
 	class menuListenner implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 		String str = ((JButton)e.getSource()).getName();
-		if(str == "go_back_to_menu") {	
+		if(str == "go_back_to_menu") {
 			controller_game.reset_engine();
 			timer.stop();
 			count = 0;

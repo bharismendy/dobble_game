@@ -47,6 +47,9 @@ public abstract class abstractControler {
 			case "victoire":
 				aff.changepan(pan);
 				break;
+			case "personnalize":
+				aff.changepan(pan);
+				break;
 			default:
 			break;
 		}

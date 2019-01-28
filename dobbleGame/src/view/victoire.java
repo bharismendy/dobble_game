@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,20 +14,23 @@ import javax.swing.JPanel;
 import controller.abstractControler;
 
 public class victoire extends JPanel implements observer.Observer{
-	private BorderLayout content_layout;
+	private GridBagLayout center_layout;
 	private JPanel content_panel;
 
 	private JLabel content_to_show;
 	private JButton go_back_to_menu;
 
+	private GridLayout content_layout;
+
 	public victoire() {
 		menuListenner menusetter = new menuListenner();
 
-		content_layout = new BorderLayout();
+		content_layout = new GridLayout(2,1);
+		center_layout = new GridBagLayout();
 
 		content_panel = new JPanel();
-		content_panel.setLayout(new BoxLayout(content_panel, BoxLayout.Y_AXIS));
-
+		content_panel.setLayout(content_layout);
+		this.setLayout(center_layout);
 		content_to_show = new JLabel();
 		content_to_show.setText("<html><hr><br>" +
 				"<h1>Vous avez gagné !!!</h1><br>" +
@@ -39,7 +44,7 @@ public class victoire extends JPanel implements observer.Observer{
 		content_panel.add(content_to_show);
 		content_panel.add(go_back_to_menu);
 
-		this.add(content_panel,content_layout.CENTER);
+		this.add(content_panel);
 
 	}
 	class menuListenner implements ActionListener{
@@ -60,3 +65,4 @@ public class victoire extends JPanel implements observer.Observer{
 	}
 
 }
+

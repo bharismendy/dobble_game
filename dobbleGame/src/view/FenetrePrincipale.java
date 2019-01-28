@@ -6,6 +6,7 @@ import java.util.Hashtable;
 
 import javax.swing.JFrame;
 
+import controller.controler_setting;
 import controller.controller_game;
 
 public class FenetrePrincipale extends JFrame implements observer.Observer{
@@ -17,11 +18,15 @@ public class FenetrePrincipale extends JFrame implements observer.Observer{
 	private rules affichage_rules;
 	private gaming_area affichage_gaming_area;
 	private controller_game controlerJeu;
+	private controler_setting conf;
 	private defaite affichage_defaite;
 	private victoire affichage_victoire;
-	public FenetrePrincipale(controller_game controlerJeu) {
+	private personnalize affichage_personnalize;
+	public FenetrePrincipale(controller_game controlerJeu,controler_setting my_conf) {
+		this.conf = my_conf;
 		this.controlerJeu = controlerJeu;
-		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		//set title
 		this.setTitle("The Dobble Game");
 		//définition du panel par défaut
@@ -34,7 +39,8 @@ public class FenetrePrincipale extends JFrame implements observer.Observer{
 		affichage_gaming_area = new gaming_area(this.controlerJeu);
 		affichage_defaite = new defaite();
 		affichage_victoire = new victoire();
-		
+		affichage_personnalize = new personnalize(my_conf,controlerJeu);
+
 		//ajout des panels à une liste
 		panels.put("accueil", affichage_accueil);
 		panels.put("about_us", affichage_about_us);
@@ -42,13 +48,13 @@ public class FenetrePrincipale extends JFrame implements observer.Observer{
 		panels.put("gaming_area", affichage_gaming_area);
 		panels.put("victoire", affichage_victoire);
 		panels.put("defaite", affichage_defaite);
-		
+		panels.put("personnalize", affichage_personnalize);
+
 		this.add((Component) panels.get(currentJpanel));
 		this.setSize(new Dimension(800, 480));
 		this.revalidate();
 		this.repaint();
 		this.setVisible(true);
-
 	}
 	public void changePanel(String nomPanel){
 		panels.get(this.currentJpanel).setVisible(false);

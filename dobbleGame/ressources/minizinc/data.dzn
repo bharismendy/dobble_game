@@ -1,0 +1,4 @@
+nbCartes = 20;
+nbSymboles = 25;
+nbSymbolesParCarte = 5;
+nbVariantes = 5;
