@@ -1,5 +1,3 @@
-On a essayé d'imposer des valeurs pour accélerer la propagation :
-* constraint jeu_symboles[1,1] = 1; -> set le premier symbole de la première carte
-* constraint forall(s in symboles_cartes)(jeu_symboles[1,s]); -> set les symboles de la première carte
+Pour des soucis de taille nous n'avons pas mis le programme miniznc dans l'archive.
 
-Etonnament, forcer la première carte à avoir la suite de valeur (1,2,3,...,nbSymbolesParCarte) donne un résultat en plus de temps que simplement forcer le premier symbole de la première carte.
+Il faut placer TOUS les dossiers du programme minizinc dans le dossier dobble_game/ressources/minizinc avec comme nom de dossier minizinc-program.
