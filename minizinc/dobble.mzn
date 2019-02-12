@@ -29,7 +29,7 @@ constraint forall(c in cartes)(increasing([jeu_symboles[c,s] | s in symboles_car
 % contrainte un symbole commun entre deux cartes
 constraint forall(c,cc in cartes where (c<cc))(sum(s in symboles_cartes)(sum(ss in symboles_cartes)(bool2int(jeu_symboles[c,s]=jeu_symboles[cc,ss])))=1);
 
-% somme pour chaque symbole
+% Le nombre d'occurence de chaque symbole
 constraint forall(s in symboles)(sum(c in cartes, ss in symboles_cartes)(bool2int(jeu_symboles[c,ss]=s))=nb_symboles[s]);
 % meilleur répartition des symboles
 constraint forall(s in symboles)(nb_symboles[s]<=max_symboles);
