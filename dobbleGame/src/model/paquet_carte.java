@@ -61,6 +61,7 @@ public class paquet_carte{
 	}
 
 	public void set_list_of_carte() {
+
 		//getting the card list in json format
 		FileReader fr = null;
 		try {

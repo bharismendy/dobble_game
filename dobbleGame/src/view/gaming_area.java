@@ -169,30 +169,18 @@ public class gaming_area extends JPanel implements observer.Observer{
 			if(a_trouve){
 				if(controller_game.get_number_of_card()==0) {
 					controller_game.reset_engine();
-					carte_droite_panel.removeAll();
-					carte_droite_panel = construct_card_panel(carte_droite_panel, controller_game.getCurrentCard(),"d");
-					carte_gauche_panel.removeAll();
-					carte_gauche_panel = construct_card_panel(carte_gauche_panel, controller_game.getPreviousCard(),"g");
 					timer.stop();
 					count = 0;
 			    	reset_timer();
 					abstractControler.changePan("victoire");
 				}else {
 					controller_game.pas_avant();
-					carte_droite_panel.removeAll();
-					carte_gauche_panel.removeAll();
-					carte_droite_panel = construct_card_panel(carte_droite_panel, controller_game.getCurrentCard(),"d");
-					carte_gauche_panel = construct_card_panel(carte_gauche_panel, controller_game.getPreviousCard(),"g");
 					timer.stop();
 			    	reset_timer();
 			    	start_timer();
 				}
 			}else {
 				controller_game.reset_engine();
-				carte_droite_panel.removeAll();
-				carte_gauche_panel.removeAll();
-				carte_droite_panel = construct_card_panel(carte_droite_panel, controller_game.getCurrentCard(),"d");
-				carte_gauche_panel = construct_card_panel(carte_gauche_panel, controller_game.getPreviousCard(),"g");
 				timer.stop();
 		    	reset_timer();
 				abstractControler.changePan("defaite");
@@ -206,10 +194,6 @@ public class gaming_area extends JPanel implements observer.Observer{
 		    	  timer_label.setText(Integer.toString(controlerJeu.getTimer()-count)+" secondes");
 	    	  }else {
 				controller_game.reset_engine();
-				carte_droite_panel.removeAll();
-				carte_gauche_panel.removeAll();
-				carte_droite_panel = construct_card_panel(carte_droite_panel, controller_game.getCurrentCard(),"d");
-				carte_gauche_panel = construct_card_panel(carte_gauche_panel, controller_game.getPreviousCard(),"g");
 		    	timer.stop();
 		    	reset_timer();
 				abstractControler.changePan("defaite");
@@ -217,8 +201,12 @@ public class gaming_area extends JPanel implements observer.Observer{
 	      }
 	  }
 	 public void start_timer() {
-		 timer.start();
-		 timer_label.setText(Integer.toString(controlerJeu.getTimer())+" secondes");
+		carte_droite_panel.removeAll();
+		carte_gauche_panel.removeAll();
+		carte_droite_panel = construct_card_panel(carte_droite_panel, controller_game.getCurrentCard(),"d");
+		carte_gauche_panel = construct_card_panel(carte_gauche_panel, controller_game.getPreviousCard(),"g");
+		timer.start();
+		timer_label.setText(Integer.toString(controlerJeu.getTimer())+" secondes");
 	 }
 	 public void reset_timer() {
 		 count = 0;

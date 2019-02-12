@@ -16,38 +16,9 @@ import view.FenetrePrincipale;
 public class Main {
 	private static Hashtable<Integer, String> ressourceJeu = new Hashtable<>();
 	public static void main(String[] args) {
-		ressourceJeu.put(1, "1.png");
-		ressourceJeu.put(2, "2.png");
-		ressourceJeu.put(3, "3.png");
-		ressourceJeu.put(4, "4.png");
-		ressourceJeu.put(5, "5.png");
-		ressourceJeu.put(6, "6.png");
-		ressourceJeu.put(7, "7.png");
-		ressourceJeu.put(8, "8.png");
-		ressourceJeu.put(9, "9.png");
-		ressourceJeu.put(10, "10.png");
-		ressourceJeu.put(11, "11.png");
-		ressourceJeu.put(12, "12.png");
-		ressourceJeu.put(13, "13.png");
-		ressourceJeu.put(14, "14.png");
-		ressourceJeu.put(15, "15.png");
-		ressourceJeu.put(16, "16.png");
-		ressourceJeu.put(17, "17.png");
-		ressourceJeu.put(18, "18.png");
-		ressourceJeu.put(19, "19.png");
-		ressourceJeu.put(20, "20.png");
-		ressourceJeu.put(21, "21.png");
-		ressourceJeu.put(22, "22.png");
-		ressourceJeu.put(23, "23.png");
-		ressourceJeu.put(24, "24.png");
-		ressourceJeu.put(25, "25.png");
-		ressourceJeu.put(26, "26.png");
-		ressourceJeu.put(27, "27.png");
-		ressourceJeu.put(28, "28.png");
-		ressourceJeu.put(29, "29.png");
-		ressourceJeu.put(30, "30.png");
-		ressourceJeu.put(31, "31.png");
-		ressourceJeu.put(32, "32.png");
+		for (int i = 1; i <= 64; i++) {
+			ressourceJeu.put(i, Integer.toString(i)+".png");
+		}
 		// récupération des préférences perso
 		personnal_setting conf = new personnal_setting();
 

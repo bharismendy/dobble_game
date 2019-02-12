@@ -172,9 +172,9 @@ public class personnalize extends JPanel implements Observer{
 			}else if (Integer.parseInt(nb_carte_field.getText())< 2){
 				error_message.setVisible(true);
 				error_message.setText("Error : You must have at least 2 cards");
-			}else if (Integer.parseInt(nb_symbole_field.getText())<1 || Integer.parseInt(nb_symbole_field.getText())>32){
+			}else if (Integer.parseInt(nb_symbole_field.getText())<1 || Integer.parseInt(nb_symbole_field.getText())>64){
 				error_message.setVisible(true);
-				error_message.setText("Error : You must have between 1 and 32 symbole");
+				error_message.setText("Error : You must have between 1 and 64 symbole");
 			}else if (Integer.parseInt(nb_symbole_par_carte_field.getText())<1){
 				error_message.setVisible(true);
 				error_message.setText("Error : You must have at least 1 symbole by cards");
@@ -208,6 +208,7 @@ public class personnalize extends JPanel implements Observer{
 				if(need_recreate_card){
 					end_gen.setVisible(true);
 					if (my_conf.recreate_card()){
+						cont_game.reset_engine();
 						end_gen.setText("Generation went good new card are ready");
 					}
 					else{
