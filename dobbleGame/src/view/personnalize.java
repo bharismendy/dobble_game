@@ -169,15 +169,19 @@ public class personnalize extends JPanel implements Observer{
 			if(Integer.parseInt(nb_variante_field.getText())>5 || Integer.parseInt(nb_variante_field.getText()) < 0){
 				error_message.setVisible(true);
 				error_message.setText("Error : The number of variante must be between 0 and 5");
+				apply.setEnabled(false);
 			}else if (Integer.parseInt(nb_carte_field.getText())< 2){
 				error_message.setVisible(true);
 				error_message.setText("Error : You must have at least 2 cards");
+				apply.setEnabled(false);
 			}else if (Integer.parseInt(nb_symbole_field.getText())<1 || Integer.parseInt(nb_symbole_field.getText())>64){
 				error_message.setVisible(true);
 				error_message.setText("Error : You must have between 1 and 64 symbole");
+				apply.setEnabled(false);
 			}else if (Integer.parseInt(nb_symbole_par_carte_field.getText())<1){
 				error_message.setVisible(true);
 				error_message.setText("Error : You must have at least 1 symbole by cards");
+				apply.setEnabled(false);
 			}else{
 				if(error_message.isVisible()){
 					error_message.setVisible(false);
